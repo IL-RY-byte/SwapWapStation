@@ -515,6 +515,185 @@
             opacity: 0.7;
         }
         
+        .journey-selector {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .journey-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journey-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .journey-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .journey-btn:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.3);
+            color: #00ff9d;
+        }
+        
+        .journey-container {
+            position: relative;
+            min-height: 300px;
+        }
+        
+        .journey-path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            padding: 40px 0;
+        }
+        
+        .journey-step {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            width: 200px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInStep 0.6s forwards;
+        }
+        
+        .journey-step:nth-child(1) { animation-delay: 0.2s; }
+        .journey-step:nth-child(3) { animation-delay: 0.8s; }
+        .journey-step:nth-child(5) { animation-delay: 1.4s; }
+        .journey-step:nth-child(7) { animation-delay: 2s; }
+        
+        @keyframes fadeInStep {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .step-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .journey-step h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #00ff9d;
+            font-weight: 400;
+        }
+        
+        .journey-step p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin: 0;
+        }
+        
+        .journey-arrow {
+            opacity: 0;
+            animation: fadeInArrow 0.5s forwards;
+        }
+        
+        .journey-arrow:nth-child(2) { animation-delay: 0.5s; }
+        .journey-arrow:nth-child(4) { animation-delay: 1.1s; }
+        .journey-arrow:nth-child(6) { animation-delay: 1.7s; }
+        
+        @keyframes fadeInArrow {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .journey-reset-btn {
+            background: transparent;
+            border: 1px solid rgba(0, 255, 157, 0.5);
+            color: #00ff9d;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .journey-reset-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .journey-step.highlight {
+            animation: pulseHighlight 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseHighlight {
+            0%, 100% {
+                border-color: rgba(255, 255, 255, 0.08);
+                box-shadow: none;
+            }
+            50% {
+                border-color: rgba(0, 255, 157, 0.5);
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            }
+        }
+        
+        @media (max-width: 968px) {
+            .journey-path {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .journey-arrow svg {
+                transform: rotate(90deg);
+                margin: -20px 0;
+            }
+            
+            .journey-selector {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .journey-btn {
+                padding: 20px 40px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 15px;
@@ -620,26 +799,175 @@
         </div>
     </div>
 
-    <!-- Slide 4: How It Works -->
+    <!-- Slide 4: Interactive How It Works -->
     <div class="slide">
         <div class="container">
             <h2>How SwapWapStation Works</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h3>1. Donate & Catalog</h3>
-                    <p>Drop off items at collection points or register via app with details and stories</p>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 50px; opacity: 0.8;">
+                Choose your journey to see how the system works
+            </p>
+            
+            <div class="journey-selector">
+                <button class="journey-btn" onclick="startJourney('volunteer')">
+                    <svg style="width: 30px; height: 30px; margin-bottom: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    I Want to Volunteer
+                </button>
+                <button class="journey-btn" onclick="startJourney('recipient')">
+                    <svg style="width: 30px; height: 30px; margin-bottom: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                    I Need Items
+                </button>
+            </div>
+
+            <div id="journey-animation" class="journey-container">
+                <!-- Volunteer Journey -->
+                <div id="volunteer-journey" class="journey-path" style="display: none;">
+                    <div class="journey-step" id="v-step-1">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                            </svg>
+                        </div>
+                        <h4>1. Sign Up</h4>
+                        <p>Register as a volunteer online or at a local center</p>
+                    </div>
+                    
+                    <div class="journey-arrow" id="v-arrow-1">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="v-step-2">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </div>
+                        <h4>2. Sort & Catalog</h4>
+                        <p>Help organize donated items and add their stories</p>
+                    </div>
+
+                    <div class="journey-arrow" id="v-arrow-2">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="v-step-3">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h4>3. Run Events</h4>
+                        <p>Organize monthly swap events in your community</p>
+                    </div>
+
+                    <div class="journey-arrow" id="v-arrow-3">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="v-step-4">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h4>4. Track Impact</h4>
+                        <p>See your contribution to sustainability and community</p>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <h3>2. Assess & Match</h3>
-                    <p>Volunteers evaluate items for repair, reuse, or direct donation to IDPs</p>
+
+                <!-- Recipient Journey -->
+                <div id="recipient-journey" class="journey-path" style="display: none;">
+                    <div class="journey-step" id="r-step-1">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                        </div>
+                        <h4>1. Register Needs</h4>
+                        <p>Fill out a form with items you need</p>
+                    </div>
+                    
+                    <div class="journey-arrow" id="r-arrow-1">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="r-step-2">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h4>2. Get Matched</h4>
+                        <p>Our system finds available items for you</p>
+                    </div>
+
+                    <div class="journey-arrow" id="r-arrow-2">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="r-step-3">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-3-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                            </svg>
+                        </div>
+                        <h4>3. Connect</h4>
+                        <p>Receive notification and arrange pickup</p>
+                    </div>
+
+                    <div class="journey-arrow" id="r-arrow-3">
+                        <svg viewBox="0 0 100 50" style="width: 100px; height: 50px;">
+                            <path d="M 10 25 L 80 25" stroke="#00ff9d" stroke-width="2" fill="none" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 75 20 L 85 25 L 75 30" stroke="#00ff9d" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <div class="journey-step" id="r-step-4">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h4>4. Receive with Story</h4>
+                        <p>Get your items with their personal stories</p>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <h3>3. Exchange & Connect</h3>
-                    <p>Monthly swap events bring communities together - no money, just stories</p>
-                </div>
-                <div class="timeline-item">
-                    <h3>4. Learn & Grow</h3>
-                    <p>Track environmental impact, earn certificates, build leadership skills</p>
+
+                <!-- Reset Button -->
+                <div id="reset-journey" style="display: none; text-align: center; margin-top: 40px;">
+                    <button class="journey-reset-btn" onclick="resetJourney()">
+                        View Another Journey
+                    </button>
                 </div>
             </div>
         </div>
@@ -995,6 +1323,45 @@
                 form.reset();
             });
         });
+
+        // Journey Animation Functions
+        function startJourney(type) {
+            // Hide selector buttons
+            document.querySelector('.journey-selector').style.display = 'none';
+            
+            // Show the appropriate journey
+            const journeyPath = document.getElementById(`${type}-journey`);
+            journeyPath.style.display = 'flex';
+            
+            // Show reset button
+            document.getElementById('reset-journey').style.display = 'block';
+            
+            // Add progressive highlighting
+            const steps = journeyPath.querySelectorAll('.journey-step');
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.classList.add('highlight');
+                    setTimeout(() => {
+                        step.classList.remove('highlight');
+                    }, 2000);
+                }, (index * 1500) + 1000);
+            });
+        }
+        
+        function resetJourney() {
+            // Hide all journeys
+            document.getElementById('volunteer-journey').style.display = 'none';
+            document.getElementById('recipient-journey').style.display = 'none';
+            document.getElementById('reset-journey').style.display = 'none';
+            
+            // Show selector buttons again
+            document.querySelector('.journey-selector').style.display = 'flex';
+            
+            // Remove any remaining highlights
+            document.querySelectorAll('.journey-step').forEach(step => {
+                step.classList.remove('highlight');
+            });
+        }
     </script>
 </body>
 </html>
