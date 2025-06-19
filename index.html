@@ -48,24 +48,20 @@
         }
         
         h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 300;
-            letter-spacing: -0.02em;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-align: center;
-            margin-bottom: 30px;
-            color: #00ff9d;
-            position: relative;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #00ff9d, transparent);
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 255, 157, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5)); }
         }
         
         h2 {
@@ -411,12 +407,120 @@
             color: #00ff9d;
         }
         
+        .items-showcase {
+            margin-top: 50px;
+        }
+        
+        .item-category {
+            margin-bottom: 60px;
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .item-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #00ff9d 0%, #00d4ff 100%);
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .item-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .item-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .item-number {
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: #00ff9d;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .item-story {
+            font-size: 0.95rem;
+            opacity: 0.6;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        
+        .available-banner {
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05) 0%, rgba(0, 212, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .available-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .available-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-mini {
+            text-align: center;
+        }
+        
+        .stat-mini-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #00ff9d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-mini-label {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 15px;
             }
             
-            .feature-grid, .stats-grid {
+            .feature-grid, .stats-grid, .items-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -431,6 +535,10 @@
             
             .checkbox-group {
                 grid-template-columns: 1fr;
+            }
+            
+            .available-stats {
+                gap: 30px;
             }
         }
     </style>
@@ -562,7 +670,125 @@
         </div>
     </div>
 
-    <!-- Slide 6: What Makes Us Different -->
+    <!-- Slide 6: Items Showcase -->
+    <div class="slide">
+        <div class="container">
+            <h2>Items Finding New Life</h2>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 50px; opacity: 0.8;">
+                Real examples from our community exchanges
+            </p>
+            
+            <div class="items-showcase">
+                <!-- Electronics Section -->
+                <div class="item-category">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 30px;">
+                        <svg style="width: 24px; height: 24px; display: inline; margin-right: 10px;" viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Electronics Saved
+                    </h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <div class="item-number">127</div>
+                            <div class="item-name">Laptops</div>
+                            <div class="item-story">"My old study laptop now helps a student in Kharkiv"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">342</div>
+                            <div class="item-name">Smartphones</div>
+                            <div class="item-story">"Connected 50+ IDP families with loved ones"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">89</div>
+                            <div class="item-name">Tablets</div>
+                            <div class="item-story">"Now used for online learning by displaced children"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Supplies Section -->
+                <div class="item-category">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 30px;">
+                        <svg style="width: 24px; height: 24px; display: inline; margin-right: 10px;" viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                        </svg>
+                        School Essentials
+                    </h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <div class="item-number">1,250</div>
+                            <div class="item-name">Backpacks</div>
+                            <div class="item-story">"My daughter's old backpack, still perfect condition"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">3,400</div>
+                            <div class="item-name">Notebooks</div>
+                            <div class="item-story">"Unused pages becoming someone's new journal"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">5,200</div>
+                            <div class="item-name">Writing Tools</div>
+                            <div class="item-story">"Pens and pencils ready for new stories"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clothing Section -->
+                <div class="item-category">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 30px;">
+                        <svg style="width: 24px; height: 24px; display: inline; margin-right: 10px;" viewBox="0 0 24 24" fill="none" stroke="#00ff9d" stroke-width="1.5">
+                            <path d="M6.5 2L8 3.5l1.5-1.5L12 3v7l-2 2-2-2V3l2.5-1M11.5 2L16 6.5V11l-2 2-2-2V3"/>
+                        </svg>
+                        Clothing Exchanged
+                    </h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <div class="item-number">2,800</div>
+                            <div class="item-name">Winter Coats</div>
+                            <div class="item-story">"Keeping families warm through difficult times"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">4,100</div>
+                            <div class="item-name">Children's Clothes</div>
+                            <div class="item-story">"Outgrown but not outloved"</div>
+                        </div>
+                        <div class="item-card">
+                            <div class="item-number">1,650</div>
+                            <div class="item-name">Shoes</div>
+                            <div class="item-story">"Every step tells a story of community care"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Now Banner -->
+                <div class="available-banner">
+                    <h3>Currently Available for Exchange</h3>
+                    <div class="available-stats">
+                        <div class="stat-mini">
+                            <span class="stat-mini-number">247</span>
+                            <span class="stat-mini-label">Electronics</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span class="stat-mini-number">892</span>
+                            <span class="stat-mini-label">Books</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span class="stat-mini-number">1,340</span>
+                            <span class="stat-mini-label">Clothes</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span class="stat-mini-number">456</span>
+                            <span class="stat-mini-label">Toys</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 20px; opacity: 0.7;">Updated daily • Next swap event: Saturday, June 28</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: What Makes Us Different -->
     <div class="slide">
         <div class="container">
             <h2>Why SwapWapStation?</h2>
@@ -613,7 +839,7 @@
         </div>
     </div>
 
-    <!-- Slide 7: Get Involved Forms -->
+    <!-- Slide 8: Get Involved Forms -->
     <div class="slide">
         <div class="container">
             <h2>Get Involved Today</h2>
